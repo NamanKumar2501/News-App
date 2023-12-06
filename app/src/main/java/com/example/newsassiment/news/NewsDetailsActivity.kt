@@ -11,9 +11,9 @@ class NewsDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_news_details)
 
         val intent = intent
-        val headline = intent.getStringExtra("name")
-        val description = intent.getStringExtra("description")
-        val img = intent.getStringExtra("image")
+//        val headline = intent.getStringExtra("name")
+//        val description = intent.getStringExtra("description")
+//        val img = intent.getStringExtra("image")
         val src = intent.getStringExtra("source")
 
         // Forwarding to web_view

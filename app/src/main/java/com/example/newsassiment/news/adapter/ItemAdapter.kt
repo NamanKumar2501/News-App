@@ -1,6 +1,5 @@
 package com.example.newsassiment.news.adapter
 
-
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsassiment.R
 import com.example.newsassiment.news.NewsDetailsActivity
+import com.example.newsassiment.news.NewsWebViewActivity
+
 import com.example.newsassiment.news.networking.Article
 
 class ItemAdapter(
     private val context: Context,
-    private val dataset: List<Article>
+    private val dataset: MutableList<Article>
 ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -42,11 +43,13 @@ class ItemAdapter(
             val intent = Intent(it.context, NewsDetailsActivity::class.java)
             intent.putExtra("name", item.title)
             val temp = item.urlToImage
-            if (temp == null){
-                intent.putExtra("image", "https://www.feednavigator.com/var/wrbm_gb_food_pharma/storage/images/_aliases/news_large/9/2/8/5/235829-6-eng-GB/Feed-Test-SIC-Feed-20142.jpg")
+            if (temp == null) {
+                intent.putExtra(
+                    "image",
+                    "https://www.feednavigator.com/var/wrbm_gb_food_pharma/storage/images/_aliases/news_large/9/2/8/5/235829-6-eng-GB/Feed-Test-SIC-Feed-20142.jpg"
+                )
 
-            }
-            else{
+            } else {
                 intent.putExtra("image", item.urlToImage)
             }
             intent.putExtra("description", item.description)
@@ -55,15 +58,26 @@ class ItemAdapter(
         }
 
         holder.textView.text = item.title
-        if (item.urlToImage == null){
+        if (item.urlToImage == null) {
             Glide.with(context)
                 .load("https://www.feednavigator.com/var/wrbm_gb_food_pharma/storage/images/_aliases/news_large/9/2/8/5/235829-6-eng-GB/Feed-Test-SIC-Feed-20142.jpg")
                 .into(holder.imageView)
-        }
-        else{
+        } else {
             Glide.with(context)
                 .load(item.urlToImage)
                 .into(holder.imageView)
         }
+    }
+
+    // Add a method to add a list of articles to the existing dataset
+    fun addAll(newDataset: List<Article>) {
+        dataset.addAll(newDataset)
+        notifyDataSetChanged()
+    }
+
+    // Add a method to clear the dataset
+    fun clear() {
+        dataset.clear()
+        notifyDataSetChanged()
     }
 }
