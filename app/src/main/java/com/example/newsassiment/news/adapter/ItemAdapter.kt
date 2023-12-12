@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsassiment.R
@@ -26,8 +27,7 @@ class ItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item, parent, false)
+        val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
 
         return ItemViewHolder(adapterLayout)
     }
@@ -40,6 +40,7 @@ class ItemAdapter(
         val item = dataset[position]
 
         holder.itemView.setOnClickListener {
+
             val intent = Intent(it.context, NewsDetailsActivity::class.java)
             intent.putExtra("name", item.title)
             val temp = item.urlToImage
@@ -54,10 +55,12 @@ class ItemAdapter(
             }
             intent.putExtra("description", item.description)
             intent.putExtra("source", item.url)
+
             it.context.startActivity(intent)
         }
 
         holder.textView.text = item.title
+
         if (item.urlToImage == null) {
             Glide.with(context)
                 .load("https://www.feednavigator.com/var/wrbm_gb_food_pharma/storage/images/_aliases/news_large/9/2/8/5/235829-6-eng-GB/Feed-Test-SIC-Feed-20142.jpg")
@@ -80,4 +83,5 @@ class ItemAdapter(
         dataset.clear()
         notifyDataSetChanged()
     }
+
 }

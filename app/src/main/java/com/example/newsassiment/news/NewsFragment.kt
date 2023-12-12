@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsassiment.R
 import com.example.newsassiment.databinding.FragmentNewsBinding
 import com.example.newsassiment.news.adapter.ItemAdapter
 import com.example.newsassiment.news.networking.NewsApi
@@ -66,8 +65,7 @@ class NewsFragment : Fragment() {
 
                 // Load more items if we have reached the end of the list and not currently loading
                 if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                    && firstVisibleItemPosition >= 0
-                ) {
+                    && firstVisibleItemPosition >= 0) {
                     loadMoreItems()
                 }
             }
@@ -89,10 +87,8 @@ class NewsFragment : Fragment() {
                     Log.d("GBK", news.toString())
                     if (currentPage == 1) {
                         adapter.addAll(news.articles)
-                       // adapter.setItems(news.articles)
                     } else {
                         adapter.addAll(news.articles)
-                       // adapter.addItems(news.articles)
                     }
                 }
                 isLoading = false
